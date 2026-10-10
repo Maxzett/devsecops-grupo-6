@@ -1,5 +1,7 @@
 # Playwright - Testing Automatizado
 
+[![Playwright Tests CI](https://github.com/gdsGrupo6GitActions/GithubActions-Grupo-6/actions/workflows/ci.yml/badge.svg)](https://github.com/gdsGrupo6GitActions/GithubActions-Grupo-6/actions/workflows/ci.yml)
+
 Proyecto desarrollado para la actividad de **Testing Automatizado con Playwright**.
 
 El objetivo es familiarizarse con Playwright y aplicar técnicas de testing End-to-End sobre una **Single Page Application (SPA)**, incorporando conceptos de QA adaptativo e inteligencia artificial generativa.
