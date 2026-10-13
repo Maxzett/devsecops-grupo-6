@@ -620,3 +620,4 @@ Mostrar confirmación
 ```
 
 De esta manera, el proyecto demuestra el uso de Playwright para testing End-to-End sobre una SPA y permite generar evidencia mediante el reporte HTML, screenshots, videos y Trace Viewer.
+
