@@ -1,0 +1,19 @@
+# .github/dependabot.yml
+# Dependabot escanea las dependencias del proyecto y abre PRs automaticos de
+# actualizacion, incluyendo las que corrigen vulnerabilidades conocidas.
+# Es la parte "Sec" (seguridad) de DevSecOps.
+
+version: 2
+
+updates:
+  # 1. Dependencias de Node (package.json / package-lock.json en la raiz).
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  # 2. Versiones de las GitHub Actions usadas en los workflows.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
