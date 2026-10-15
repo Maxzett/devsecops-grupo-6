@@ -219,3 +219,61 @@ document
     document.getElementById("registerEmail").value = "";
 
   });
+
+
+/*
+ * ---------------------------------------------------------------------------
+ * CODE SMELL INTRODUCIDO A PROPOSITO - SOLO PARA LA DEMO DEL VIDEO
+ * ---------------------------------------------------------------------------
+ * Este bloque rompe el Quality Gate de SonarCloud en el "new code":
+ *   - variableSinUsar: variable declarada que no se usa (code smell).
+ *   - buscarUsuariosDuplicado(): funcion que NUNCA se llama y que DUPLICA
+ *     (> 20 lineas) la logica de busqueda de mas arriba. Al no estar
+ *     referenciada ni testeada, baja el coverage del codigo nuevo y
+ *     SonarCloud la marca como duplicacion.
+ * El fix de la demo elimina todo este bloque.
+ * ---------------------------------------------------------------------------
+ */
+
+const variableSinUsar = "esto no se usa en ningun lado";
+
+function buscarUsuariosDuplicado() {
+
+  const value =
+    document
+      .getElementById("searchInput")
+      .value
+      .toLowerCase();
+
+  const results =
+    document.getElementById("searchResults");
+
+  results.innerHTML = "";
+
+  const filtered =
+    users.filter(user =>
+      user.name.toLowerCase().includes(value)
+    );
+
+  if (filtered.length === 0) {
+
+    results.innerHTML =
+      "<p>No se encontraron usuarios</p>";
+
+    return;
+  }
+
+  filtered.forEach(user => {
+
+    const div =
+      document.createElement("div");
+
+    div.className = "user";
+
+    div.textContent =
+      user.name + " - " + user.email;
+
+    results.appendChild(div);
+
+  });
+}
