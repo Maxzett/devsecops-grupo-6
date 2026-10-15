@@ -8,6 +8,9 @@ module.exports = defineConfig({
 
   testDir: "./tests",
 
+  // Global teardown: genera coverage/lcov.info al terminar toda la suite.
+  globalTeardown: "./coverage.teardown.js",
+
   timeout: 30000,
 
   reporter: [
