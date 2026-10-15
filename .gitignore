@@ -1,0 +1,16 @@
+# Dependencias de Node
+node_modules/
+
+# Reportes y resultados de Playwright
+playwright-report/
+test-results/
+
+# Coverage (se genera en el Paso 3 para SonarCloud)
+coverage/
+.nyc_output/
+
+# Carpeta de trabajo del SonarScanner
+.scannerwork/
+
+# Variables de entorno (nunca commitear secrets)
+.env

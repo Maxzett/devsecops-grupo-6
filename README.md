@@ -1,6 +1,6 @@
 # Playwright - Testing Automatizado
 
-[![Playwright Tests CI](https://github.com/gdsGrupo6GitActions/GithubActions-Grupo-6/actions/workflows/ci.yml/badge.svg)](https://github.com/gdsGrupo6GitActions/GithubActions-Grupo-6/actions/workflows/ci.yml)
+[![Playwright Tests CI](https://github.com/Maxzett/devsecops-grupo-6/actions/workflows/ci.yml/badge.svg)](https://github.com/Maxzett/devsecops-grupo-6/actions/workflows/ci.yml)
 
 Proyecto desarrollado para la actividad de **Testing Automatizado con Playwright**.
 
