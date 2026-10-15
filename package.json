@@ -5,9 +5,11 @@
   "scripts": {
     "test": "playwright test",
     "test:headed": "playwright test --headed",
+    "test:coverage": "playwright test --project=chromium",
     "report": "playwright show-report"
   },
   "devDependencies": {
-    "@playwright/test": "^1.63.0"
+    "@playwright/test": "^1.63.0",
+    "monocart-coverage-reports": "^2.13.2"
   }
 }

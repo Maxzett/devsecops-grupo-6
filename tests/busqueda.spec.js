@@ -18,3 +18,19 @@ test(
 
   }
 );
+
+
+test(
+  "Buscar usuario inexistente muestra mensaje vacío",
+  async ({ app, page }) => {
+
+    await app.login();
+
+    await app.buscar("UsuarioQueNoExiste");
+
+    await expect(
+      page.getByText("No se encontraron usuarios")
+    ).toBeVisible();
+
+  }
+);

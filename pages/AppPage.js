@@ -43,6 +43,11 @@ class AppPage {
     name: "Registrar",
     exact: true
     });
+
+    this.logoutButton =
+      page.getByRole("button", {
+        name: "Cerrar sesión"
+      });
   }
 
 
@@ -75,6 +80,12 @@ class AppPage {
     await this.registerEmail.fill(email);
 
     await this.registerButton.click();
+  }
+
+
+  async logout() {
+
+    await this.logoutButton.click();
   }
 
 }

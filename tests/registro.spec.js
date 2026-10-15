@@ -23,3 +23,19 @@ test(
 
   }
 );
+
+
+test(
+  "Registrar con campos vacíos muestra error",
+  async ({ app, page }) => {
+
+    await app.login();
+
+    await app.registrar("", "");
+
+    await expect(
+      page.getByText("Todos los campos son obligatorios")
+    ).toBeVisible();
+
+  }
+);
