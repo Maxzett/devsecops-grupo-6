@@ -29,7 +29,7 @@ jobs:
       #    fetch-depth: 0 trae TODO el historial de git. SonarCloud lo necesita
       #    para detectar el "new code" (lo nuevo del PR) y para el blame.
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
