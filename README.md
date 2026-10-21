@@ -1,10 +1,12 @@
-# Playwright - Testing Automatizado
+# DevSecOps Grupo 6 - Testing Automatizado con Playwright
 
 [![Playwright Tests CI](https://github.com/Maxzett/devsecops-grupo-6/actions/workflows/ci.yml/badge.svg)](https://github.com/Maxzett/devsecops-grupo-6/actions/workflows/ci.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Maxzett_devsecops-grupo-6&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Maxzett_devsecops-grupo-6)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Maxzett_devsecops-grupo-6&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Maxzett_devsecops-grupo-6)
 
-Proyecto desarrollado para la actividad de **Testing Automatizado con Playwright**.
+Proyecto desarrollado para las actividades de **Testing Automatizado con Playwright** y **DevSecOps**.
 
-El objetivo es familiarizarse con Playwright y aplicar técnicas de testing End-to-End sobre una **Single Page Application (SPA)**, incorporando conceptos de QA adaptativo e inteligencia artificial generativa.
+El objetivo es aplicar técnicas de testing End-to-End sobre una **Single Page Application (SPA)**, incorporando conceptos de QA adaptativo e inteligencia artificial generativa, e integrarlas en un pipeline de CI con análisis de calidad y seguridad (**GitHub Actions + SonarCloud + Dependabot**).
 
 ---
 
@@ -33,6 +35,10 @@ Los tests automatizados se realizan utilizando **Playwright**.
 * Node.js
 * Playwright
 * Playwright Test
+* monocart-coverage-reports (coverage V8)
+* GitHub Actions
+* SonarCloud (SonarQube Cloud)
+* Dependabot
 
 ---
 
@@ -56,16 +62,28 @@ También se necesita npm:
 npm --version
 ```
 
+### Python
+
+Playwright levanta la SPA con el servidor estático de Python (`python -m http.server`), así que también es necesario tener Python 3 instalado y disponible como `python`:
+
+```bash
+python --version
+```
+
 ---
 
 ## 4. Instalación
 
-Clonar o descargar el proyecto.
+Clonar el proyecto:
+
+```bash
+git clone https://github.com/Maxzett/devsecops-grupo-6.git
+```
 
 Ingresar desde una terminal a la carpeta principal:
 
 ```bash
-cd playwright-qa
+cd devsecops-grupo-6
 ```
 
 Instalar las dependencias:
@@ -87,10 +105,16 @@ Una vez finalizada la instalación, el proyecto está listo para ejecutar.
 # 5. Estructura del proyecto
 
 ```text
-playwright-qa/
+devsecops-grupo-6/
+│
+├── .github/
+│   ├── workflows/
+│   │   └── ci.yml
+│   └── dependabot.yml
 │
 ├── app/
-│   └── index.html
+│   ├── index.html
+│   └── app.js
 │
 ├── pages/
 │   └── AppPage.js
@@ -101,22 +125,27 @@ playwright-qa/
 ├── tests/
 │   ├── login.spec.js
 │   ├── busqueda.spec.js
-│   └── registro.spec.js
+│   ├── registro.spec.js
+│   └── logout.spec.js
 │
 ├── docs/
 │   ├── SPEC.md
 │   └── IA.md
 │
+├── coverage.config.js
+├── coverage.teardown.js
+├── sonar-project.properties
 ├── package.json
-│
 ├── playwright.config.js
-│
 └── README.md
 ```
 
 ### `app/`
 
 Contiene la SPA que será utilizada como sistema bajo prueba.
+
+* `index.html`: estructura y estilos de la aplicación.
+* `app.js`: lógica de la SPA (login, búsqueda, registro y logout). Es el archivo sobre el que se mide el coverage.
 
 ### `pages/`
 
@@ -128,17 +157,31 @@ Contiene el **Page Object Model**.
 
 Contiene las fixtures utilizadas por los tests.
 
-La fixture permite crear y preparar una instancia de `AppPage` para reutilizarla en los diferentes casos de prueba.
+La fixture permite crear y preparar una instancia de `AppPage` para reutilizarla en los diferentes casos de prueba. En Chromium, además, captura el coverage de `app.js` durante cada test.
 
 ### `tests/`
 
 Contiene los casos de prueba automatizados.
 
-Actualmente existen tres grupos:
+Actualmente existen cuatro grupos:
 
 * `login.spec.js`
 * `busqueda.spec.js`
 * `registro.spec.js`
+* `logout.spec.js`
+
+### `.github/`
+
+* `workflows/ci.yml`: pipeline de integración continua (ver sección 21).
+* `dependabot.yml`: configuración de Dependabot (ver sección 23).
+
+### `coverage.config.js` y `coverage.teardown.js`
+
+Configuración de monocart-coverage-reports y global teardown que genera `coverage/lcov.info` al terminar la suite (ver sección 22).
+
+### `sonar-project.properties`
+
+Configuración del análisis de SonarCloud: proyecto, carpetas de código y tests, ruta del reporte de coverage y exclusiones.
 
 ### `docs/`
 
@@ -157,7 +200,8 @@ Contiene la configuración de Playwright:
 * screenshots;
 * videos;
 * traces;
-* reporte HTML.
+* reporte HTML;
+* global teardown de coverage.
 
 ---
 
@@ -193,6 +237,12 @@ Actualmente:
 
 * Chromium
 * Firefox
+
+Para ejecutar solo en Chromium (el único navegador donde se mide coverage):
+
+```bash
+npm run test:coverage
+```
 
 ---
 
@@ -275,10 +325,10 @@ Playwright también utiliza Trace Viewer para analizar errores.
 La configuración utiliza:
 
 ```js
-trace: "on-first-retry"
+trace: "on"
 ```
 
-Si un test falla y se vuelve a ejecutar, Playwright puede generar un trace.
+Por lo tanto, Playwright genera un trace para cada test, falle o no.
 
 El trace permite analizar:
 
@@ -382,6 +432,24 @@ El resultado esperado es:
 
 ```text
 Usuario registrado correctamente
+```
+
+---
+
+## Logout
+
+Archivo:
+
+```text
+tests/logout.spec.js
+```
+
+El test inicia sesión, verifica que aparezca el `Panel principal` y luego cierra sesión.
+
+El resultado esperado es volver a la pantalla con el encabezado:
+
+```text
+Iniciar sesión
 ```
 
 ---
@@ -617,7 +685,74 @@ Completar formulario
 Crear usuario
   ↓
 Mostrar confirmación
+
+LOGOUT
+  ↓
+Cerrar sesión
+  ↓
+Volver al login
 ```
 
 De esta manera, el proyecto demuestra el uso de Playwright para testing End-to-End sobre una SPA y permite generar evidencia mediante el reporte HTML, screenshots, videos y Trace Viewer.
+
+---
+
+# 21. Integración continua (GitHub Actions)
+
+El workflow `.github/workflows/ci.yml` se ejecuta al abrir, actualizar o reabrir un **Pull Request hacia `main`**.
+
+Pasos del job `Run Playwright Tests`:
+
+1. Checkout del repositorio con todo el historial (`fetch-depth: 0`, necesario para SonarCloud).
+2. Configuración de Node.js 20.
+3. Cache de las dependencias de npm.
+4. `npm ci`.
+5. `npx playwright install --with-deps` (Chromium y Firefox).
+6. `npm test`: ejecuta la suite y genera `coverage/lcov.info`.
+7. Análisis de SonarCloud, esperando el veredicto del Quality Gate.
+8. Publicación del reporte HTML de Playwright como artifact (`playwright-report`, retenido 14 días), incluso si fallaron los tests o el gate.
+
+`Run Playwright Tests` es un check requerido por la protección de la rama `main`: si falla, no se puede mergear el PR.
+
+---
+
+# 22. Coverage
+
+El coverage de `app/app.js` se mide con la API de coverage V8 de Playwright y **monocart-coverage-reports**:
+
+* La fixture (`fixtures/test-fixtures.js`) inicia la captura antes de navegar y la acumula al terminar cada test. Solo funciona en **Chromium**; en Firefox los tests corren sin instrumentar.
+* El global teardown (`coverage.teardown.js`) genera el reporte final al terminar toda la suite.
+* `coverage.config.js` filtra solo `app.js` y mapea su ruta a `app/app.js` para que coincida con `sonar.sources`.
+
+Salida:
+
+```text
+coverage/lcov.info
+```
+
+Además, se imprime un resumen del porcentaje por consola (también visible en el log del CI).
+
+---
+
+# 23. Seguridad y calidad: SonarCloud y Dependabot
+
+### SonarCloud
+
+El análisis se configura en `sonar-project.properties` y se ejecuta en el CI usando el secret `SONAR_TOKEN`.
+
+El job espera el resultado del **Quality Gate** (`sonar.qualitygate.wait=true`) y falla si no pasa, por ejemplo por:
+
+* bugs o vulnerabilidades nuevas;
+* coverage del código nuevo menor al 80%.
+
+Como el check es requerido, un Quality Gate fallido bloquea el merge del PR.
+
+### Dependabot
+
+`.github/dependabot.yml` revisa semanalmente:
+
+* las dependencias de npm (`package.json` / `package-lock.json`);
+* las versiones de las GitHub Actions usadas en los workflows.
+
+Cuando encuentra actualizaciones (incluidas las que corrigen vulnerabilidades conocidas), abre PRs automáticos, que pasan por el mismo pipeline de CI.
 
