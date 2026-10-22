@@ -6,6 +6,9 @@ name: Playwright Tests CI
 
 # Se ejecuta al abrir o actualizar un PR dirigido a main.
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
