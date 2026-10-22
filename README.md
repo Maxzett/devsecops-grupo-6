@@ -1,8 +1,8 @@
 # DevSecOps Grupo 6 - Testing Automatizado con Playwright
 
-[![Playwright Tests CI](https://github.com/Maxzett/devsecops-grupo-6/actions/workflows/ci.yml/badge.svg)](https://github.com/Maxzett/devsecops-grupo-6/actions/workflows/ci.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Maxzett_devsecops-grupo-6&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Maxzett_devsecops-grupo-6)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Maxzett_devsecops-grupo-6&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Maxzett_devsecops-grupo-6)
+[![Playwright Tests CI](https://github.com/devsecops-grupo-6-utn/devsecops-grupo-6/actions/workflows/ci.yml/badge.svg)](https://github.com/devsecops-grupo-6-utn/devsecops-grupo-6/actions/workflows/ci.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=devsecops-grupo-6-utn_devsecops-grupo-6&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=devsecops-grupo-6-utn_devsecops-grupo-6)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=devsecops-grupo-6-utn_devsecops-grupo-6&metric=coverage)](https://sonarcloud.io/summary/new_code?id=devsecops-grupo-6-utn_devsecops-grupo-6)
 
 Proyecto desarrollado para las actividades de **Testing Automatizado con Playwright** y **DevSecOps**.
 
@@ -77,7 +77,7 @@ python --version
 Clonar el proyecto:
 
 ```bash
-git clone https://github.com/Maxzett/devsecops-grupo-6.git
+git clone https://github.com/devsecops-grupo-6-utn/devsecops-grupo-6.git
 ```
 
 Ingresar desde una terminal a la carpeta principal:
